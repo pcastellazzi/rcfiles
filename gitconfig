@@ -1,0 +1,37 @@
+[user]
+  name  = Pablo Castellazzi
+  email = pablo.castellazzi@icloud.com
+
+[core]
+  pager = /bin/cat
+  excludesfile = ~/.gitignore
+
+[color]
+  ui     = auto
+  diff   = auto
+  status = auto
+  branch = auto
+
+[mergetool]
+  tool   = vimdiff
+  prompt = false
+
+[difftool]
+  tool   = vimdiff
+  prompt = false
+
+[alias]
+  history = log --graph --pretty=format':%C(yellow)%h%Cblue%d%C(black) %s %Creset %an, %ad'
+  sync = ! git fetch -vaptuf && git checkout master && git pull
+
+[apply]
+  whitespace = warn
+
+[help]
+  autocorrect = 0
+
+[status]
+  submodule = 1
+
+[push]
+  default = current
