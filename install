@@ -15,7 +15,7 @@ function link -a src dst
     and inf "`$dst` was properly updated"
 end
 
-mkdir -p "$HOME/.config" vim/tmp
+mkdir -p "$HOME/.config" vim/tmp/{backup,swap,undo}
 
 for file in $PWD/* $PWD/config/*
   set -l name (string replace "$PWD/" "" $file)

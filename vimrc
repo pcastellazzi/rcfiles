@@ -1,5 +1,5 @@
 " core configuration
-  set backupdir=~/.vim/tmp directory=~/.vim/tmp undodir=~/.vim/tmp
+  set backupdir=~/.vim/tmp/backup// directory=~/.vim/tmp/swap// undodir=~/.vim/tmp/undo//
   set nocompatible modeline modelines=2
   set autoindent smartindent
   set expandtab softtabstop=2 tabstop=2 shiftwidth=2 shiftround nowrap
