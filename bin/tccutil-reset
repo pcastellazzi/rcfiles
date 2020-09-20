@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# service list from: https://gist.github.com/haircut/aeb22c853b0ae4b483a76320ccc8c8e9
+set -euo pipefail
+IFS=$'\n\t'
+
+SERVICES=(
+    "Accessibility"
+    "AddressBook"
+    "All"
+    "AppleEvents"
+    "Calendar"
+    "Camera"
+    "ContactsFull"
+    "ContactsLimited"
+    "Facebook"
+    "FileProviderDomain"
+    "FileProviderPresence"
+    "LinkedIn"
+    "Liverpool"
+    #"Location" why this fail?
+    "MediaLibrary"
+    "Microphone"
+    "Motion"
+    "Photos"
+    "PhotosAdd"
+    "PostEvent"
+    "Reminders"
+    "ScreenCapture"
+    "ShareKit"
+    "SinaWeibo"
+    "Siri"
+    "SpeechRecognition"
+    "SystemPolicyAllFiles"
+    "SystemPolicyDesktopFolder"
+    "SystemPolicyDeveloperFiles"
+    "SystemPolicyDocumentsFolder"
+    "SystemPolicyNetworkVolumes"
+    "SystemPolicyRemovableVolumes"
+    "SystemPolicySysAdminFiles"
+    "SystemPolicyDownloadsFolder"
+    "TencentWeibo"
+    "Twitter"
+    "Ubiquity"
+    "Willow"
+)
+
+for service in ${SERVICES[@]}; do
+    tccutil reset $service
+done
