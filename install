@@ -27,10 +27,6 @@ for file in $PWD/* $PWD/config/*
     case "config"
       continue
 
-    case "config/fish"
-      rm -rf "$HOME/.config/fish";\
-        and link $file "$HOME/.config/fish"
-
     case "bin"
       link $file "$HOME/$name"
 

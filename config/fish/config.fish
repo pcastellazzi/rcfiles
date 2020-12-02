@@ -10,5 +10,5 @@ if status --is-login
 end
 
 if test -f ~/.config/fish/fish_local
-    . ~/.config/fish/fish_local
+  . ~/.config/fish/fish_local
 end
