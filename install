@@ -27,6 +27,9 @@ for file in $PWD/* $PWD/config/*
     case "config"
       continue
 
+    case "disabled"
+      continue
+
     case "bin"
       link $file "$HOME/$name"
 
