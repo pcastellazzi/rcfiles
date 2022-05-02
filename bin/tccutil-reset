@@ -44,6 +44,24 @@ SERVICES=(
     "Willow"
 )
 
-for service in ${SERVICES[@]}; do
-    tccutil reset $service
-done
+case ${1:-} in
+    all)
+    for service in ${SERVICES[@]}; do
+        tccutil reset $service
+    done
+    ;;
+
+    core)
+    tccutil reset AddressBook
+    tccutil reset Calendar
+    tccutil reset Reminders
+    tccutil reset Photos
+    tccutil reset SystemPolicyAllFiles
+    tccutil reset SystemPolicyDesktopFolder
+    tccutil reset SystemPolicyDocumentsFolder
+    ;;
+
+    *)
+    echo >&2 "Usage: $0 all|core"
+    exit 1
+esac
