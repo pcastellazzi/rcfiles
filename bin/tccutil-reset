@@ -6,18 +6,16 @@ IFS=$'\n\t'
 SERVICES=(
     "Accessibility"
     "AddressBook"
-    "All"
     "AppleEvents"
+    "BluetoothAlways"
     "Calendar"
     "Camera"
     "ContactsFull"
     "ContactsLimited"
-    "Facebook"
+    "DeveloperTool"
     "FileProviderDomain"
     "FileProviderPresence"
-    "LinkedIn"
-    "Liverpool"
-    #"Location" why this fail?
+    "ListenEvent"
     "MediaLibrary"
     "Microphone"
     "Motion"
@@ -26,42 +24,62 @@ SERVICES=(
     "PostEvent"
     "Reminders"
     "ScreenCapture"
-    "ShareKit"
-    "SinaWeibo"
     "Siri"
     "SpeechRecognition"
     "SystemPolicyAllFiles"
     "SystemPolicyDesktopFolder"
     "SystemPolicyDeveloperFiles"
     "SystemPolicyDocumentsFolder"
+    "SystemPolicyDownloadsFolder"
     "SystemPolicyNetworkVolumes"
     "SystemPolicyRemovableVolumes"
     "SystemPolicySysAdminFiles"
-    "SystemPolicyDownloadsFolder"
-    "TencentWeibo"
-    "Twitter"
-    "Ubiquity"
     "Willow"
+
+    #"Location"
+    #"Liverpool"
+    #"ShareKit"
+    #"Ubiquity"
+
+    #"Facebook"
+    #"LinkedIn"
+    #"Prototype3Rights"
+    #"Prototype4Rights"
+    #"SinaWeibo"
+    #"TencentWeibo"
+    #"Twitter"
 )
 
 case ${1:-} in
-    all)
-    for service in ${SERVICES[@]}; do
-        tccutil reset $service
+all)
+    for service in "${SERVICES[@]}"; do
+        tccutil reset "${service}"
     done
     ;;
 
-    core)
+common)
+    tccutil reset Accesibility
     tccutil reset AddressBook
     tccutil reset Calendar
+    tccutil reset Camera
+    tccutil reset DeveloperTool
+    tccutil reset Microphone
     tccutil reset Reminders
     tccutil reset Photos
+    tccutil reset ScreenCapture
     tccutil reset SystemPolicyAllFiles
     tccutil reset SystemPolicyDesktopFolder
     tccutil reset SystemPolicyDocumentsFolder
     ;;
 
-    *)
-    echo >&2 "Usage: $0 all|core"
+debug)
+    sqlite3 -box \
+        "/Library/Application Support/com.apple.TCC/TCC.db" \
+        "SELECT service, client FROM access ORDER BY service, client"
+    ;;
+
+*)
+    echo >&2 "Usage: $0 all|common|debug"
     exit 1
+    ;;
 esac

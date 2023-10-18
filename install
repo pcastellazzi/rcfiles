@@ -27,7 +27,7 @@ for file in $PWD/* $PWD/config/*
     case "config"
       continue
 
-    case "disabled"
+    case "legacy"
       continue
 
     case "bin"
