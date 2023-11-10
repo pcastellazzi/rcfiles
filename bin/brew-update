@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+set -x
+brew update
+brew upgrade
+brew autoremove
+brew cleanup --prune=all -s
+
+fish -c fish_update_completions >/dev/null
+
+pipx upgrade-all || pipx reinstall-all --python "$(which python3)"
+poetry completions fish >~/.config/fish/completions/poetry.fish
