@@ -17,7 +17,7 @@ set wildmenu
 
 set autoindent smartindent
 set backupdir=~/.vim/tmp/backup// directory=~/.vim/tmp/swap// undodir=~/.vim/tmp/undo//
-set expandtab softtabstop=2 tabstop=2 shiftwidth=2 shiftround nowrap
+set expandtab softtabstop=4 tabstop=4 shiftwidth=4 shiftround nowrap
 set ignorecase incsearch infercase smartcase
 set foldcolumn=1 foldnestmax=3 foldmethod=indent
 set modeline modelines=2
@@ -34,6 +34,5 @@ au BufReadPost * normal zR
 au BufWritePre * :%s/\s\+$//e | $put _ | 0;/^\%(\_s*\S\)\@!/,$d | $put _
 
 if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
+    source ~/.vimrc.local
 endif
-

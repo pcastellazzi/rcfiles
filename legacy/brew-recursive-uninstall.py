@@ -45,7 +45,11 @@ def main(argv=None):
         description="Recursively uninstall a package with all its unused dependencies",
     )
     parser.add_argument(
-        "packages", metavar="package", type=str, nargs="+", help="package to uninstall",
+        "packages",
+        metavar="package",
+        type=str,
+        nargs="+",
+        help="package to uninstall",
     )
     args = parser.parse_args(argv)
 
@@ -72,4 +76,3 @@ if __name__ == "__main__":
     )
 
     sys.exit(main() or 0)
-

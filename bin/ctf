@@ -2,7 +2,6 @@
 
 from argparse import ArgumentParser, ArgumentTypeError
 from enum import Enum
-from os import chdir
 from pathlib import Path
 from shlex import quote as shell_quote
 from subprocess import run
@@ -55,4 +54,3 @@ solve.write_text("#!/usr/bin/env bash\nset -euo pipefail\nIFS=$'\\n\\t'\n\n")
 run(["code", solve])
 
 print(f"cd {shell_quote(str(cdir))}")
-
