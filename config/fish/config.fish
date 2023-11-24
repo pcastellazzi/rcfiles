@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-if status --is-login
+if status --is-interactive
     set -gx PATH /usr/local/bin /usr/bin /bin /usr/local/sbin /usr/sbin /sbin
     set -gx EDITOR /usr/bin/vim
     set -gx PAGER /usr/bin/less
@@ -12,3 +12,4 @@ end
 if test -f ~/.config/fish/fish_local
     . ~/.config/fish/fish_local
 end
+

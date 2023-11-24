@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# DONT USE THIS WITHOUT MODIFICATIONS
+
+# This script was made to clean Debian like systems of unused packages.
+# It will silently remove most of your system if you don't modify it!
+# You have been warned.
+
+export DEBIAN_FRONTEND=noninteractive
+
+PACKAGES_TO_KEEP=(
+    ubuntu-minimal
+    ubuntu-standard
+    ubuntu-server
+    ubuntu-wsl
+    socat
+
+    build-essential
+    flex
+    bison
+    libncurses-dev
+)
+
+# Write a sane sources.list
+cat >/etc/apt/sources.list <<__EOF__
+deb http://archive.ubuntu.com/ubuntu/  jammy           main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/  jammy-updates   main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/  jammy-backports main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu/ jammy-security  main restricted universe multiverse
+__EOF__
+
+# before using this and possibly break your system read apt.conf(5)
+cat >/etc/apt/apt.conf.d/90local <<__EOF__
+# https://github.com/Debian/apt/blob/main/doc/examples/configure-index
+
+#clear APT::Never-MarkAuto-Sections;
+quiet "2";
+
+APT {
+    Install-Recommends "false";
+    Install-Suggests "false";
+
+    Get {
+        Assume-Yes "true";
+        AutomaticRemove "true";
+        Fix-Broken "true";
+        Fix-Missing "true";
+        Purge "true";
+        quiet "2";
+        Show-Upgraded "true";
+        Upgrade-Allow-New "true";
+    };
+};
+__EOF__
+
+set -x
+
+# Mark every package as automatically installed. Doing this will schedule them
+# for purging.
+dpkg-query --show --showformat '${Package}\n' | xargs apt-mark auto >/dev/null
+
+# The ones we want to keep, we "install" (which is a NOOP here). Everything
+# that's not a dependency of this packages will be purged.
+apt-get install "${PACKAGES_TO_KEEP[@]}"
+
+# For good measure we remove everything else that may be broken.
+dpkg-query --show --showformat '${db:Status-Abbrev}%${Package}\n' \
+    | { grep -Fv "ii " || test $? = 1; } \
+    | xargs apt-get purge
+
+# Update the system for good measure
+apt-get update
+apt-get dist-upgrade
+
