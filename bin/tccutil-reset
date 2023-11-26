@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# service list from: https://gist.github.com/haircut/aeb22c853b0ae4b483a76320ccc8c8e9
+# strings /System/Library/PrivateFrameworks/TCC.framework/Support/tccd | grep kTCCService
+
 set -euo pipefail
 IFS=$'\n\t'
 
