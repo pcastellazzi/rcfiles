@@ -67,8 +67,13 @@ cat >/etc/apt/apt.conf.d/90local <<__EOF__
 quiet "2";
 
 APT {
-    Install-Recommends "false";
     Install-Suggests "false";
+    Install-Recommends "false";
+
+    AutoRemove {
+        RecommendsImportant "false";
+        SuggestsImportant "false";
+    };
 
     Get {
         Assume-Yes "true";
