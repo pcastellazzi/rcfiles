@@ -1,4 +1,4 @@
-"" ~/.vimrc
+" ~/.vimrc
 
 set nocompatible
 
@@ -6,6 +6,7 @@ set backspace=eol,indent,start
 set cursorline
 set encoding=utf-8
 set esckeys
+set fixeol
 set formatoptions=cqrt
 set hidden
 set laststatus=2
@@ -31,7 +32,6 @@ filetype plugin on
 filetype indent on
 
 au BufReadPost * normal zR
-au BufWritePre * :%s/\s\+$//e | $put _ | 0;/^\%(\_s*\S\)\@!/,$d | $put _
 
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
