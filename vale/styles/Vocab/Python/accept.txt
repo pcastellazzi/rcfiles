@@ -1,4 +1,0 @@
-Cookiecutter
-Makefile
-deptry
-pytest
