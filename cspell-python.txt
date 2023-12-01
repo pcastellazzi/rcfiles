@@ -1,0 +1,6 @@
+cbreak
+deptry
+pytest
+tcgetattr
+TCSADRAIN
+tcsetattr
