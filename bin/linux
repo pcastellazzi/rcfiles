@@ -3,6 +3,8 @@ set -euo pipefail
 IFS=$'\n\t'
 
 OPTIONS=(
+    --cap-add=all
+    --privileged
     --interactive
     --rm
     --tty
@@ -13,4 +15,4 @@ OPTIONS=(
 image=${1:-ubuntu}
 shift || true
 
-echo exec podman run "${OPTIONS[@]}" "${image}" "$@"
+exec podman run "${OPTIONS[@]}" "${image}" "$@"
