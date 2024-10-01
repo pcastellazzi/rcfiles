@@ -2,7 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# DONT USE THIS WITHOUT MODIFICATIONS
+# DON'T USE THIS WITHOUT MODIFICATIONS
 
 # This script was made to clean Debian like systems of unused packages.
 # It will silently remove most of your system if you don't modify it!
@@ -27,11 +27,18 @@ write_debian_apt_sources() {
 
 write_ubuntu_apt_sources() {
     # preserve \t at the beginning of each line or <<- would not work
-    cat >/etc/apt/sources.list <<-__EOF__
-	deb http://archive.ubuntu.com/ubuntu/  ${VERSION_CODENAME}           main restricted universe multiverse
-	deb http://archive.ubuntu.com/ubuntu/  ${VERSION_CODENAME}-updates   main restricted universe multiverse
-	deb http://archive.ubuntu.com/ubuntu/  ${VERSION_CODENAME}-backports main restricted universe multiverse
-	deb http://security.ubuntu.com/ubuntu/ ${VERSION_CODENAME}-security  main restricted universe multiverse
+    cat >/etc/apt/sources.list.d/ubuntu.sources <<-__EOF__
+	Types: deb
+	URIs: http://archive.ubuntu.com/ubuntu/
+	Suites: ${VERSION_CODENAME} ${VERSION_CODENAME}-updates ${VERSION_CODENAME}-backports
+	Components: main restricted universe multiverse
+	Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+	Types: deb
+	URIs: http://security.ubuntu.com/ubuntu/
+	Suites: ${VERSION_CODENAME}-security
+	Components: main restricted universe multiverse
+	Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 	__EOF__
 }
 
@@ -98,6 +105,7 @@ apt-get install "${PACKAGES_TO_KEEP[@]}"
 # for good measure we remove everything else that may be broken.
 dpkg-query --show --showformat '${db:Status-Abbrev}%${Package}\n' |
     { grep -Fv "ii " || test $? = 1; } |
+    cut -d% -f2 |
     xargs apt-get purge
 
 # update the system
