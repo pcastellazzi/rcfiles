@@ -8,15 +8,6 @@ brew upgrade
 brew autoremove
 brew cleanup --prune=all -s
 
-PYTHON_NEW=$(python3 --version)
-PYTHON_OLD=$(pipx list --json | jq -r '.venvs.[].metadata.python_version' | sort -u)
-
-if [[ "$PYTHON_OLD" = "$PYTHON_NEW" ]]; then
-    pipx upgrade-all
-else
-    pipx reinstall-all --python "$(which python3)"
-fi
-
 poetry completions fish >~/.config/fish/completions/poetry.fish
 fish -c fish_update_completions >/dev/null
 vim -es +PlugUpgrade +PlugUpdate +qa || true
