@@ -6,6 +6,7 @@ if status --is-interactive
     set -gx PAGER /usr/bin/less
     set -gx LC_ALL 'en_US.UTF-8'
     set -gx LANG 'en_US.UTF-8'
+    set -U fish_greeting ""
     umask 0077
 end
 
