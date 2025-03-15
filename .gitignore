@@ -1,7 +1,5 @@
 .DS_Store
 /vim/autoload/
-/vim/pack/
 /vim/plugged/
 /vim/tmp/swap/*.swp
 /vim/.netrwhist
-.aider*
