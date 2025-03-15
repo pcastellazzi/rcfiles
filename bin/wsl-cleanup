@@ -52,9 +52,14 @@ PACKAGES_TO_KEEP=(
     bash-completion
     build-essential
     dialog
+    dnsutils
+    iptables
     manpages
     openssh-client
     socat
+    uidmap
+
+    terraform
 )
 
 # shellcheck disable=SC1091

@@ -1,0 +1,3 @@
+# ignore WSL symlinks
+/code
+/npiperelay.exe

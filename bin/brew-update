@@ -7,7 +7,4 @@ brew update
 brew upgrade
 brew autoremove
 brew cleanup --prune=all -s
-
-poetry completions fish >~/.config/fish/completions/poetry.fish
-fish -c fish_update_completions >/dev/null
 vim -es +PlugUpgrade +PlugUpdate +qa || true
