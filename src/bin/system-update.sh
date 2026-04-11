@@ -14,7 +14,7 @@ fi
 
 if command -v flatpak >/dev/null; then
 	flatpak update --assumeyes
-	flatpak uninstall --unused
+	flatpak uninstall --assumeyes --unused
 fi
 
 if command -v snap >/dev/null; then

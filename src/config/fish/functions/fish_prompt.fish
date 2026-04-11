@@ -1,6 +1,7 @@
 set -g __prompt_color_env purple
 set -g __prompt_color_git yellow
 set -g __prompt_color_pwd cyan
+set -g __prompt_color_sql green
 
 function __prompt_out
     set_color $argv[1]
@@ -32,6 +33,20 @@ function __prompt_pwd
     __prompt_out $__prompt_color_pwd (prompt_pwd)
 end
 
+function __prompt_sql
+    set -l database
+    if set -q PGHOST
+        set database "pgsql:$PGHOST"
+        if set -q PGPORT
+            set database "$database:$PGPORT"
+        end
+        if set -q PGDATABASE
+            set database "$database/$PGDATABASE"
+        end
+        __prompt_out $__prompt_color_sql "$database"
+    end
+end
+
 function __prompt_status
     for exit_code in $argv
         if test $exit_code -ne 0
@@ -43,10 +58,26 @@ end
 
 function fish_prompt
     set -l last_status $status $pipestatus
-    echo -en \
-        (__prompt_env) \
-        (__prompt_pwd) \
-        (__prompt_git) \
-        (__prompt_status $last_status) \
-        "\n❯ "
+
+    set -l lprompt (
+        echo -en \
+            (__prompt_env) \
+            (__prompt_pwd) \
+            (__prompt_git) \
+            (__prompt_status $last_status)
+    )
+    set -l rprompt (
+        echo -en \
+            (__prompt_sql)
+    )
+
+    set -l lprompt_length (string length --visible "$lprompt")
+    set -l rprompt_length (string length --visible "$rprompt")
+    set -l padding (math $COLUMNS - $lprompt_length - $rprompt_length)
+
+    if test $padding -gt 0
+        printf "%s%*s%s\n❯ " "$lprompt" $padding "" "$rprompt"
+    else
+        printf "%s\n❯ " "$lprompt"
+    end
 end
