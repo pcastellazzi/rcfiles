@@ -50,7 +50,13 @@ end
 function __prompt_status
     for exit_code in $argv
         if test $exit_code -ne 0
-            __prompt_out red "[$exit_code]"
+            if test $exit_code -gt 128
+                set -l sig_num (math $exit_code - 128)
+                set -l sig_name (kill -l $sig_num)
+                __prompt_out red "[$exit_code // SIG$sig_name]"
+            else
+                __prompt_out red "[$exit_code]"
+            end
             break
         end
     end

@@ -18,5 +18,7 @@
       "opencode.json": "deny",
       ".opencode/*": "deny"
     }
-  }
+  },
+
+  "plugin": ["opencode-gemini-auth@latest"]
 }
