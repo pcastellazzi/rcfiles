@@ -18,14 +18,14 @@ if [[ "${CURRENT_BRANCH}" != "master" ]]; then
 	abort "Current branch is ${CURRENT_BRANCH}, not master. Switch to master first."
 fi
 
+CALENDAR_VERSION=v$(date +%Y%m%d)
+LAST_MASTER_COMMIT=$(git rev-list -n 1 master)
 LOG_MESSAGES=$(
-    git log master.."${SOURCE_BRANCH}" \
-        --pretty=format:"* %s" \
-        --reverse \
-        --not "$(git rev-list -n 1 master)"
+	git log master.."${SOURCE_BRANCH}" \
+		--pretty=format:"* %s" \
+		--reverse \
+		--not "${LAST_MASTER_COMMIT}"
 )
 
-CALENDAR_VERSION=v$(date +%Y%m%d)
-
 git merge -X theirs --squash "${SOURCE_BRANCH}"
-git commit -m "$(printf "${CALENDAR_VERSION}\n\n${LOG_MESSAGES}")"
+git commit -m "$(printf "%s\n\n%s" "${CALENDAR_VERSION}" "${LOG_MESSAGES}")"
