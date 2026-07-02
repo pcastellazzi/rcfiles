@@ -23,7 +23,7 @@ fi
 
 if command -v brew >/dev/null; then
 	brew update
-	brew upgrade
+	brew upgrade --yes
 	brew autoremove
 	brew cleanup --prune=all --scrub
 fi

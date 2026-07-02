@@ -3,7 +3,7 @@
 
   "agent": {
     "build": {
-      "model": "google/gemini-3.1-flash-lite-preview",
+      "model": "google/gemini-3.1-flash-lite",
       "prompt": "{file:./prompts/gemini.txt}"
     },
 
@@ -20,5 +20,5 @@
     }
   },
 
-  "plugin": ["opencode-gemini-auth@latest"]
+  "plugin": ["opencode-antigravity-auth@latest"]
 }
