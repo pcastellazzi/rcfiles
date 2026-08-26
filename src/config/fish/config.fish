@@ -2,17 +2,18 @@ status is-interactive; or return
 
 # sudo launchctl config user umask 077
 # sudo chfn -o other='umask=077'
-if test $umask != '0077'
+if test $umask != 0077
     echo >&2 "[WRN] default umask is $umask. Forcing 0077."
     umask 0077
 end
 
 set -gx COPIER_SETTINGS_PATH '~/.config/copier/settings.yml'
-set -gx EDITOR 'vim'
+set -gx EDITOR hx
 set -gx FZF_DEFAULT_COMMAND 'fd --type=file --hidden --follow'
 set -gx LANG 'en_US.UTF-8'
 set -gx LC_ALL 'en_US.UTF-8'
-set -gx PAGER 'bat'
+set -gx PAGER bat
+set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME "$HOME/.config"
 
 set -e -Ugl PATH
 fish_add_path --path --append /usr/local/bin /usr/bin /bin /usr/local/sbin /usr/sbin /sbin
@@ -22,10 +23,10 @@ fish_add_path (path resolve ~/.local/bin ~/bin)
 
 set -l brew_bin brew
 switch (uname)
-case Darwin
-    set brew_bin /usr/local/bin/brew
-case Linux
-    set brew_bin /home/linuxbrew/.linuxbrew/bin/brew
+    case Darwin
+        set brew_bin /usr/local/bin/brew
+    case Linux
+        set brew_bin /home/linuxbrew/.linuxbrew/bin/brew
 end
 
 cache_config $brew_bin shellenv

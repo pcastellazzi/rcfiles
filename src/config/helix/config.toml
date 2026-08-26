@@ -1,0 +1,20 @@
+theme = "catppuccin_mocha"
+
+[editor]
+cursorline = true
+end-of-line-diagnostics = "hint"
+line-number = "relative"
+rulers = [78, 88]
+trim-final-newlines = true
+trim-trailing-whitespace = true
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+other-lines = "disable"
+
+[editor.lsp]
+auto-signature-help = false
+display-inlay-hints = false
+
+[keys.normal]
+ins = "insert_mode"

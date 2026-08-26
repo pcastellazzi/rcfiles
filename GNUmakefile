@@ -25,6 +25,11 @@ check:
 	shfmt --diff $(SHELL_SCRIPTS)
 
 
+.PHONY: update
+update:
+	prek auto-update --cooldown-days 7 --freeze
+
+
 .PHONY: venv
 venv:
 	rm -rf .venv

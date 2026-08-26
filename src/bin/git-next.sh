@@ -29,3 +29,5 @@ LOG_MESSAGES=$(
 
 git merge -X theirs --squash "${SOURCE_BRANCH}"
 git commit -m "$(printf "%s\n\n%s" "${CALENDAR_VERSION}" "${LOG_MESSAGES}")"
+git branch -f "${SOURCE_BRANCH}" master
+git push -f origin "${SOURCE_BRANCH}"

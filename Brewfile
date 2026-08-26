@@ -12,7 +12,6 @@ brew "ripgrep"
 brew "shellcheck"
 brew "shfmt"
 brew "uv"
-brew "zellij"
 brew "zoxide"
 
 if OS.linux?

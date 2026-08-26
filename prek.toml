@@ -1,0 +1,28 @@
+#:schema https://www.schemastore.org/prek.json
+
+[[repos]]
+repo = "builtin"
+hooks = [
+  {id = "check-executables-have-shebangs"},
+  {id = "check-shebang-scripts-are-executable"},
+  {id = "end-of-file-fixer"},
+  {id = "trailing-whitespace"},
+]
+
+[[repos]]
+repo = "https://github.com/astral-sh/ruff-pre-commit"
+rev = "01a675ea018f2fb714478a5ffb83fcea8374bb06"
+hooks = [{id = "ruff-check"}, {id = "ruff-format"}]
+
+[[repos]]
+repo = "local"
+hooks = [
+  {
+    id = "make-check",
+    name = "make-check",
+    entry = "make check",
+    language = "system",
+    always_run = true,
+    pass_filenames = false,
+  }
+]

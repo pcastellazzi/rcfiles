@@ -8,7 +8,7 @@ function cache_config
     set -l bin_path (type -p $cmd)
     set -l bin_name (basename $bin_path)
 
-    if test -z $bin_path
+    if test -z "$bin_path"
         echo "Error: Command '$cmd' not found in PATH" >&2
         return 1
     end
@@ -18,7 +18,7 @@ function cache_config
 
     mkdir -p $cache_dir
     if test $bin_path -nt $cache_file
-        $bin_path $argv[2..] > $cache_file
+        $bin_path $argv[2..] >$cache_file
     end
 
     source $cache_file
