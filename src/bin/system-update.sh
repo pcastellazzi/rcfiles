@@ -25,53 +25,9 @@ pm-homebrew() {
 	brew cleanup --prune=all --scrub
 }
 
-pm-nix-root() {
-	>/dev/null 2>&1 command -v nix || return
-	sudo -i nix upgrade-nix
-
-	should_start=0
-	update_unit() {
-		local src=$1
-		local dst=$2
-		if [[ -L "${dst}" || "${src}" -nt "${dst}" ]]; then
-			sudo systemctl stop "$(basename "${dst}")"
-			sudo rm "${dst}"
-			sudo cp "${src}" "${dst}"
-			sudo chmod 0644 "${dst}"
-			should_start=1
-		fi
-	}
-
-	update_unit \
-		/nix/var/nix/profiles/default/lib/systemd/system/nix-daemon.socket \
-		/etc/systemd/system/nix-daemon.socket
-
-	update_unit \
-		/nix/var/nix/profiles/default/lib/systemd/system/nix-daemon.service \
-		/etc/systemd/system/nix-daemon.service
-
-	if [[ $should_start -eq 1 ]]; then
-		sudo systemctl daemon-reload
-		sudo systemctl start nix-daemon.socket nix-daemon.service
-	fi
-
-	sudo -i nix-collect-garbage
-}
-
-pm-nix-user() {
-	>/dev/null 2>&1 command -v nix || return
-	nix profile upgrade --all
-	nix-collect-garbage
-}
-
 pm-snap() {
 	>/dev/null 2>&1 command -v snap || return
 	sudo snap refresh
-}
-
-pm-software-update() {
-	>/dev/null 2>&1 command -v softwareupdate || return
-	softwareupdate --install --all
 }
 
 run-package-manager() {

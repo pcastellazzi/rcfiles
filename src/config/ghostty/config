@@ -1,4 +1,13 @@
-config-file = ?config.local
-font-family = JetBrainsMono Nerd Font
-quit-after-last-window-closed = true
+command = direct:/home/linuxbrew/.linuxbrew/bin/fish
 theme = Catppuccin Mocha
+
+font-family = JetBrainsMono Nerd Font
+window-width = 80
+window-height = 24
+
+keybind = alt+arrow_down=goto_split:down
+keybind = alt+arrow_left=goto_split:left
+keybind = alt+arrow_right=goto_split:right
+keybind = alt+arrow_up=goto_split:up
+
+config-file = ?config.local

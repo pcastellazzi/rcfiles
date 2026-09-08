@@ -1,28 +1,50 @@
 #:schema https://www.schemastore.org/prek.json
+# https://prek.j178.dev/
 
 [[repos]]
 repo = "builtin"
 hooks = [
-  {id = "check-executables-have-shebangs"},
-  {id = "check-shebang-scripts-are-executable"},
-  {id = "end-of-file-fixer"},
-  {id = "trailing-whitespace"},
+  { id = "check-executables-have-shebangs" },
+  { id = "check-shebang-scripts-are-executable" },
+  { id = "check-toml" },
+  { id = "detect-private-key" },
+  { id = "end-of-file-fixer" },
+  { id = "mixed-line-ending" },
+  { id = "trailing-whitespace" },
 ]
 
 [[repos]]
-repo = "https://github.com/astral-sh/ruff-pre-commit"
-rev = "01a675ea018f2fb714478a5ffb83fcea8374bb06"
-hooks = [{id = "ruff-check"}, {id = "ruff-format"}]
+repo = "https://github.com/gitleaks/gitleaks"
+rev = "83d9cd684c87d95d656c1458ef04895a7f1cbd8e"  # frozen: v8.30.1
+hooks = [{ id = "gitleaks" }]
 
 [[repos]]
 repo = "local"
-hooks = [
-  {
-    id = "make-check",
-    name = "make-check",
-    entry = "make check",
-    language = "system",
-    always_run = true,
-    pass_filenames = false,
-  }
-]
+
+[[repos.hooks]]
+entry = "shellcheck"
+id = "shellcheck"
+language = "system"
+name = "shellcheck"
+types = ["shell"]
+
+[[repos.hooks]]
+entry = "shfmt --diff"
+id = "shellformat"
+language = "system"
+name = "shellformat"
+types = ["shell"]
+
+[[repos.hooks]]
+entry = "tombi format"
+id = "tombi-format"
+language = "system"
+name = "tombi-format"
+types = ["toml"]
+
+[[repos.hooks]]
+entry = "tombi lint"
+id = "tombi-lint"
+language = "system"
+name = "tombi-lint"
+types = ["toml"]

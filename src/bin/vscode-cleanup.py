@@ -94,15 +94,15 @@ def verify_shared_settings(user: pathlib.Path) -> None:
 
     applied_settings = set(settings.get(SHARED_SETTINGS_KEY, []))
     if logging.DEBUG >= logging.root.level:
-        logger.debug("Shared settings: %r", list(sorted(applied_settings)))
+        logger.debug("Shared settings: %r", sorted(applied_settings))
 
-    defined_settings = set(
+    defined_settings = {
         setting
-        for setting in settings.keys()
+        for setting in settings
         if not setting.startswith("[") and setting not in IGNORED_SETTINGS
-    )
+    }
     if logging.DEBUG >= logging.root.level:
-        logger.debug("Defined settings: %r", list(sorted(defined_settings)))
+        logger.debug("Defined settings: %r", sorted(defined_settings))
 
     delta1 = applied_settings - defined_settings
     for key in delta1:

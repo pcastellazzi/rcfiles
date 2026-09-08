@@ -1,12 +1,8 @@
 #!/usr/bin/env -S uv run --script
 
 # /// script
-# requires-python = ">=3.12"
-# dependencies = [
-#     "deepmerge==2.0",
-#     "ruamel.yaml==0.18.16",
-#     "pyyaml==6.0.3",
-# ]
+# requires-python = ">=3.14"
+# dependencies = ["deepmerge", "ruamel.yaml"]
 # ///
 
 from deepmerge import always_merger

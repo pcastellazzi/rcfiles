@@ -1,0 +1,4 @@
+# if your IDE don't understand PEP723 (inline script metadata) run `make venv`
+deepmerge
+jsonyx
+ruamel.yaml
